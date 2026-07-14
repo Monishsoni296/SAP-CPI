@@ -1,0 +1,7 @@
+#
+#Tue Jul 14 09:40:17 UTC 2026
+ProcessDrect\ Address=/weather/forecast
+enableLogPayload=false
+fetchCoordAddress_Adr=/fetchAddress
+fetchCoord_Addr=/fetchCoord
+fetchForecast_Adr=/fetchForecast
