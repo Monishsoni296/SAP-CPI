@@ -1,0 +1,10 @@
+#Tue Jul 14 10:27:55 UTC 2026
+Alert_Addr=/fetchAlert
+No.\ of\ Days=10
+No.\ of\ hours=12
+ProcessDrect\ Address=/weather/dashboard
+fetchCoordAddress_Adr=/fetchAddress
+fetchCoord_Addr=/fetchCoord
+fetchCurrentWeather_Addr=/fetchWeather
+fetchForecast_Addr=/fetchForecast
+fetchGeminiResponse_Addr=/fetchGeminiResponse
