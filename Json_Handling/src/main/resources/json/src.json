@@ -1,0 +1,46 @@
+{
+  "value": [
+    {
+      "ConsolidationDocumentType": "22",
+      "ConsolidationLedger": "1G",
+      "ConsolidationUnit": "1090",
+      "ConsolidationVersion": "T10",
+      "CreationDateTime": "2026-07-06T10:44:41.7910000Z",
+      "CurrUnit": "AED",
+      "FinancialStatementItem": "1091009000",
+      "FiscalPeriod": "002",
+      "FiscalYear": "2025",
+      "IsDataPeriodic": "true",
+      "RowNumber": 1,
+      "Subitem": "100",
+      "SubitemCategory": 1,
+      "Trading_Partner": "2391",
+      "AmountInTransactionCurrency": 0,
+      "UpdateMode": "2",
+      "ConsolidationGroup": "",
+      "AmountInLocalCurrency": 0,
+      "AmountInGroupCurrency": -3130.27
+    },
+    {
+      "ConsolidationDocumentType": "07",
+      "ConsolidationLedger": "1G",
+      "ConsolidationUnit": "1100",
+      "ConsolidationVersion": "M10",
+      "CreationDateTime": "2026-07-06T10:44:41.7910000Z",
+      "CurrUnit": "AED",
+      "FinancialStatementItem": "1049004850",
+      "FiscalPeriod": "012",
+      "FiscalYear": "2025",
+      "IsDataPeriodic": "true",
+      "RowNumber": 1,
+      "Subitem": "100",
+      "SubitemCategory": 1,
+      "Trading_Partner": "2197",
+      "AmountInTransactionCurrency": 10839416.15,
+      "UpdateMode": "2",
+      "ConsolidationGroup": "",
+      "AmountInLocalCurrency": 10839416.15,
+      "AmountInGroupCurrency": 10839416.15
+    }
+  ]
+}

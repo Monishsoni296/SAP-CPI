@@ -1,0 +1,643 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "The User Upload connector enables customers, suppliers, and\/or MSP partner administrators to upload multiple users into SAP Fieldglass, replacing the need for entering user adds, updates, and deletes one by one through the application\u2019s user interface. In some situations, the User Upload allows customers that are currently using an HRIS application to maintain employee data in that system and utilize this upload to pass the pertinent data for user accounts to SAP Fieldglass.",
+    "version" : "1.0.0",
+    "title" : "User Upload",
+    "termsOfService" : "https://www.fieldglass.net/TermsOfUse.en_US.pdf",
+    "contact" : {
+      "name" : "SAP Fieldglass",
+      "url" : "https://www.fieldglass.com",
+      "email" : "Fieldglass_API@sap.com"
+    },
+    "license" : {
+      "name" : "SAP Fieldglass",
+      "url" : "https://www.fieldglass.net/TermsOfUse.en_US.pdf"
+    }
+  },
+  "x-servers": [
+    {
+      "url": "https://{hostname}/api/{suffix}",
+      "description": "REST API",
+      "templates": {
+        "hostname": {
+          "enum": [
+            "www.fieldglass.net"
+          ],
+          "default": "www.fieldglass.net",
+          "description": "The SAP Fieldglass region where the SAP Fieldglass APIs are used."
+        },
+        "suffix": {
+          "enum": [
+            "vc"
+          ],
+          "default": "vc",
+          "description": "The suffix for the URL."
+        }
+      }
+    }
+  ],
+ "x-sap-shortText": "Upload users into SAP Fieldglass.",
+  "host": "sandbox.api.sap.com",
+  "basePath": "/fieldglass/api/vc/connector",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "description": "To use this REST API, you need to get OAuth client credentials (user credentials and client-specific application key) from an SAP Fieldglass account representative. After that, you need to pass the obtained client credentials to the SAP Fieldglass token endpoint to obtain an access token.",
+      "flow": "application",
+      "tokenUrl": "https://api1.fgvms.com/api/oauth2/v2.0/token?grant_type=client_credentials",
+      "scopes": {
+        "user": "User"
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2": [
+        "user"
+      ]
+    }
+  ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/User Upload" : {
+      "post" : {
+        "tags" : [ "User Upload" ],
+        "summary" : "This connector may be used by customers, suppliers, and/or MSP Partner Administrators to upload multiple users into Fieldglass, replacing the need for entering user adds, updates, and deletes one by one through the application's user interface. In some situations, it allows customers that are currently using an HRIS application to maintain employee data in that system and utilize this upload to pass the pertinent data for user accounts to Fieldglass.",
+        "description" : "",
+        "operationId" : "User Upload",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "Only required for production access when using SAP Fieldglass.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "X-ApplicationKey",
+          "in" : "header",
+          "description" : "The company-specific key provided by SAP Fieldglass for API access. Required for production access.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "Body",
+          "description" : "The Body of the payload.",
+          "required" : true,
+          "schema" : {
+            "type" : "object",
+            "properties" : {
+              "headers" : {
+                "$ref" : "#/definitions/Headers"
+              },
+              "data" : {
+                "$ref" : "#/definitions/Data"
+              }
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK.",
+            "schema" : {
+              "$ref" : "#/definitions/Status"
+            }
+          },
+          "400" : {
+            "description" : "Bad request.",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          },
+          "404" : {
+            "description" : "Not found.",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error.",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          },
+          "503" : {
+            "description" : "Service Unavailable.",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Status" : {
+      "properties" : {
+        "TransactionID" : {
+          "type" : "string",
+          "description" : "Number of uploaded records: 0.\\\\nCompleted updating records",
+          "maxLength" : 24
+        }
+      }
+    },
+    "Headers" : {"type" : "object",
+      "properties" : {
+        "Type" : {
+          "type" : "string",
+          "description" : ""
+        },
+        "Transaction" : {
+          "type" : "string",
+          "description" : ""
+        },
+        "Send Notification?" : {
+          "type" : "string",
+          "description" : ""
+        },
+        "Language" : {
+          "type" : "string",
+          "description" : ""
+        },
+        "Number Format" : {
+          "type" : "string",
+          "description" : ""
+        },
+        "Update Profile Worker BU when Owner is Closed" : {
+          "type" : "string",
+          "description" : ""
+        }
+      }
+    },
+    "Error" : {
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "fields" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Data" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "Deactivation Date" : {
+            "type" : "string",
+            "format" : "date",
+            "description" : "Date for which a user is to be recorded as closed.\n[Blank] will set field to blank."
+          },
+          "Default Legal Entity" : {
+            "type" : "string",
+            "description" : "Default legal entity on user profile.\nCompany configuration \"Enable Legal Entity\" must be\nenabled.\nShould be one of the legal entities associated to this\nuser.\n[Blank] will set field to blank.",
+            "maxLength" : 100
+          },
+          "Work Item Assignment" : {
+            "type" : "string",
+            "description" : "The SAP Fieldglass Username of the user from the buyer side\nwho can act on user?s work items after they are deleted.\nUsernames are defined in the SAP Fieldglass system.\nIf left blank, this field will default to the user?s\nsupervisor.",
+            "maxLength" : 100
+          },
+          "Account" : {
+            "type" : "string",
+            "description" : "The valid Account Name as defined in the SAP Fieldglass\nsystem from supplier side.\nIf left blank in update mode, this field retains its old\nvalue.",
+            "maxLength" : 100
+          },
+          "Default Cost Center" : {
+            "type" : "string",
+            "description" : "The Cost Center Code as defined in the SAP Fieldglass system.\nThe Default Cost Center identifies the preferred cost center\nof the user and what data the user has access to in SAP\nFieldglass.\n*Not required for bulk upload. Defaults to company\nconfiguration.\n[Blank] will set field to blank.",
+            "maxLength" : 200
+          },
+          "PMO User" : {
+            "type" : "string",
+            "description" : "PMO user (User with Can Act As Coordinator/Distributor) - All\nProgram Office users in the company will have visibility. \nIf left blank, then defaults to No.",
+            "maxLength" : 3
+          },
+          "Time Zone" : {
+            "type" : "string",
+            "description" : "The time zone in which the user prefers items to be\ntracked.\nIf left blank in add mode, it defaults to buyer?s default\nsetting for time zone. \nIf left blank in update mode, the app will retain the old\nvalue.",
+            "maxLength" : 100
+          },
+          "User will receive Ask an Expert (Services) questions" : {
+            "type" : "string",
+            "description" : "This field is applicable only if buyer has enabled plug-in\n?Ask an Expert (Contingent)?. Determines if user can receive\nAsk an Expert (Contingent) questions.",
+            "maxLength" : 3
+          },
+          "Email" : {
+            "type" : "string",
+            "description" : "The user's email.",
+            "maxLength" : 100
+          },
+          "Default Site" : {
+            "type" : "string",
+            "description" : "The Site Code as defined in the SAP Fieldglass system. The\ndefault site identifies the preferred site of the user and\nwhat data the user has access to in SAP Fieldglass.\n[Blank] will set field to blank.",
+            "maxLength" : 100
+          },
+          "Question (Services)" : {
+            "type" : "string",
+            "description" : "This field is applicable only if buyer has enabled plug-in\n?Ask an Expert (Contingent)?. Question that will appear if\nuser has permission to Ask an Expert (Contingent)\nquestions.",
+            "maxLength" : 3
+          },
+          "Role Name" : {
+            "type" : "string",
+            "description" : "The user role as defined in the SAP Fieldglass system. The\nuser role defines what access and security privileges the\nuser has.",
+            "maxLength" : 100
+          },
+          "View History Tab" : {
+            "type" : "string",
+            "description" : "The History tab will display in clear text all fields that\nhave been changed, whether the fields are masked or hidden\nto this user when creating or viewing the document.",
+            "maxLength" : 3
+          },
+          "First Name" : {
+            "type" : "string",
+            "description" : "The user's first name.",
+            "maxLength" : 100
+          },
+          "Email Format" : {
+            "type" : "string",
+            "description" : "Email format preference of the user.\nIf left blank in add mode, it will default to the email\nformat of the buyer\nIf left blank in update mode, it retains the old value.",
+            "maxLength" : 500
+          },
+          "Manage Personally Identifiable Information" : {
+            "type" : "string",
+            "description" : "Indicates if the user can access personal identifiable\ninformation on several modules.",
+            "maxLength" : 3
+          },
+          "Send Work Item Digest" : {
+            "type" : "string",
+            "description" : "Determines if the user wishes to receive work items at\nscheduled time.\nOnly applicable if company configuration ?Enable Email\nDigest? for Work Items is enabled.",
+            "maxLength" : 3
+          },
+          "View Restricted Attachments" : {
+            "type" : "string",
+            "description" : "Indicates if user can view restricted attachments.",
+            "maxLength" : 3
+          },
+          "Manage Site Configurations" : {
+            "type" : "string",
+            "description" : "Determines if the user can edit site configurations.\nWhen left blank, in add mode, this field defaults to No. If\nleft blank in update mode, this field retains its old\nsetting.",
+            "maxLength" : 3
+          },
+          "Modification Type" : {
+            "type" : "string",
+            "description" : "A = Add\nU = Update\nD = Delete\nBlank ? When an existing username is entered, SAP Fieldglass\nidentifies it as an update. When new username is entered,\nSAP Fieldglass identifies it as an Add.\nIn case of full bulk upload, modification type is not\nrequired.",
+            "maxLength" : 1
+          },
+          "View and Report on Sensitive Data" : {
+            "type" : "string",
+            "description" : "If the company Config. ?Enable Security Information? and\n?Display Security Information Masked (value is always\nencrypted)? are enabled, and a user has ?View and Report on\nSensitive Data?, then this user can see unencrypted values\nfor Security ID and sensitive data for custom fields.",
+            "maxLength" : 3
+          },
+          "View Release Feature Admin" : {
+            "type" : "string",
+            "description" : "Indicates SAP Fieldglass Feature Administration guide\n(formerly the playbook) can be viewed by the user.",
+            "maxLength" : 3
+          },
+          "View Worker Personal Details" : {
+            "type" : "string",
+            "description" : "Determines if user can see worker personal details.\nThis field is dependent upon the ?Suppress Worker Personal\nDetails? Site configuration. When this configuration is\nenabled, if the field is left blank, it will default to No.\nWhen this configuration is not enabled, this field should be\nleft blank.",
+            "maxLength" : 3
+          },
+          "Cost Center Access" : {
+            "type" : "string",
+            "description" : "Determines the method for which cost center access will be\ngiven to a user.\nALL = All cost centers will be associated with the user.\nBuild = As cost centers are used by users that are\nsubordinate to the user or appear on transactions requiring\nthe user?s approval, the user will be given access.\nAssociate = Cost centers must be explicitly associated with\nthe user on their profile in SAP Fieldglass.\nIf field left blank, value defaults to Associate.",
+            "maxLength" : 9
+          },
+          "Currency" : {
+            "type" : "string",
+            "description" : "Determines the currency for the user. Values may only consist\nof currencies already associated with the buyer. \nIf left blank in add mode, it will default to default\ncurrency of the buyer.\nIf left blank in update mode, it retains the old value.",
+            "maxLength" : 100
+          },
+          "Send Email Approval" : {
+            "type" : "string",
+            "description" : "Indicates if the Email Approval message should be sent in\naddition to the Work Items message. \nCompany configuration ?Enable Email Digest? and 'Enable\nActionable Emails' must be enabled for this field to appear. \nAlso 'Send Work Item Digest' should be Yes in order to view\nthis field.",
+            "maxLength" : 3
+          },
+          "Time Format" : {
+            "type" : "string",
+            "description" : "Time format preference of the user.\nIf left blank in add mode, it will default to time format of\nthe buyer.\nIf left blank in update mode, it retains the old value.",
+            "maxLength" : 500
+          },
+          "Work Item" : {
+            "type" : "string",
+            "description" : "Specifies if user would like to receive Work Item as an email\nor not at all.\nIf no value is provided, Work Items will appear in SAP\nFieldglass, but no notifications will be sent to the\nuser.\nNone ? removes existing value.",
+            "maxLength" : 5
+          },
+          "City" : {
+            "type" : "string",
+            "description" : "The user's city.\n[Blank] will set field to blank.",
+            "maxLength" : 50
+          },
+          "MSP User" : {
+            "type" : "string",
+            "description" : "Indicates if user belongs to an MSP company.Only\napplicable for single MSP buyers.The 'Manage\nPersonally Identifiable Information' flag cannot be enabled\nfor MSP users.",
+            "maxLength" : 100
+          },
+          "Site Access" : {
+            "type" : "string",
+            "description" : "Determines the method for which sites access will be given to\na user.\nALL = All sites will be associated with the user.\nBuild = As sites are used by users that are subordinate to\nthe user or appear on transactions requiring the user?s\napproval, the user will be given access.\nAssociate = Sites must be explicitly associated with the user\non their profile in SAP Fieldglass.\nIf field left blank, value defaults to Associate.",
+            "maxLength" : 9
+          },
+          "cc Emails to" : {
+            "type" : "string",
+            "description" : "Valid email address.\n[Blank] will set field to blank.",
+            "maxLength" : 100
+          },
+          "Hide Desktop Resource Wizard" : {
+            "type" : "string",
+            "description" : "Yes: ?Show Resource Request Wizard? Flag on My Preference\nwill be disabled.\nNo: ?Show Resource Request Wizard? Flag on My Preference will\nbe enabled. \nIf left blank, this field defaults to No.",
+            "maxLength" : 3
+          },
+          "Program Office will assist with Job Posting creation" : {
+            "type" : "string",
+            "description" : "Determines if the user will utilize the PMO assisted work\nflow or the unassisted workflow for job postings.",
+            "maxLength" : 3
+          },
+          "State" : {
+            "type" : "string",
+            "description" : "The user's state/province. Use the two-digit state code.\n[Blank] will set field to blank.",
+            "maxLength" : 50
+          },
+          "Job Code" : {
+            "type" : "string",
+            "description" : "This field defines the job code the user can use on the job\nposting. \nThis field is optional. If a value is entered in this field,\nit must match the value from a job code on the job templates\ncreated by the company.\n[Blank] will set field to blank.",
+            "maxLength" : 100
+          },
+          "Country" : {
+            "type" : "string",
+            "description" : "The user's country. For example, ?USA?. Refer to the Country\nList for the complete list of valid values (Administration |\nCompany Data | Users | Create User | Country).\n[Blank] will set field to blank.",
+            "maxLength" : 3
+          },
+          "First Work Items Digest Time" : {
+            "type" : "number",
+            "description" : "Indicates scheduled time for work items to be sent to user\nwhen Send Work Item Digest = ?Yes?."
+          },
+          "Visualizer" : {
+            "type" : "string",
+            "description" : "This field is applicable only if the buyer has enabled the\nplug-in Visualizer. Determines if the user will utilize\nVisualizer.",
+            "maxLength" : 3
+          },
+          "[sa] Default Currency Code" : {
+            "type" : "number",
+            "description" : "Enter the user?s signature authority. This amount, along with\nthe primary supervisor information, is used for approval\nchaining. \nFor example, currency code: ?USD? should be ?[sa] USD?.\nSignature authority for all other currencies associated to\nthe buyer will be derived from this value using the currency\nconversion rates effective on that day.\n0 (zero) will set field to zero. [Blank] will set field to\nblank."
+          },
+          "Last Name" : {
+            "type" : "string",
+            "description" : "The user's last name.",
+            "maxLength" : 100
+          },
+          "Question (Contingent)" : {
+            "type" : "string",
+            "description" : "This field is applicable only if buyer has enabled plug-in\n?Ask an Expert (Contingent)?. Question that will appear if\nuser has permission to Ask an Expert (Contingent)\nquestions.",
+            "maxLength" : 3
+          },
+          "Number Format" : {
+            "type" : "string",
+            "description" : "Determines the number format for the user.\nIf left blank in add mode, it will default to default number\nformat of the buyer.\nIf left blank in update mode, it retains the old value.",
+            "maxLength" : 500
+          },
+          "Scheduled Delivery Time for Notification Digest" : {
+            "type" : "number",
+            "description" : "Indicates scheduled time for notifications to be sent to user\nwhen Send Notification Digest = ?Yes?."
+          },
+          "Can this user act as Coordinator/Distributor" : {
+            "type" : "string",
+            "description" : "Determines the MSP Coordinator Flag that dictates whether the\nuser may be assigned as a Coordinator and/or Distributor for\na business unit.",
+            "maxLength" : 3
+          },
+          "Employee ID" : {
+            "type" : "string",
+            "description" : "The identifier appointed to the user by the buyer\ncompany.\n[Blank] will set field to blank.",
+            "maxLength" : 50
+          },
+          "Legal Entities" : {
+            "type" : "string",
+            "description" : "The Legal Entity as defined in the SAP Fieldglass system.\nMultiple codes are separated by tilde (~).\nNot necessary if 'Access to all Legal Entities' company\nconfiguration enabled.",
+            "maxLength" : 200
+          },
+          "Prefix" : {
+            "type" : "string",
+            "description" : "The prefix of the user?s name.",
+            "maxLength" : 10
+          },
+          "County" : {
+            "type" : "string",
+            "description" : "The user?s county.\n[Blank] will set field to blank.",
+            "maxLength" : 50
+          },
+          "Notification" : {
+            "type" : "string",
+            "description" : "Specifies if user would like to receive notification message\nas an email or not at all.\nIf no value is provided, Notifications, will appear in SAP\nFieldglass but will not be sent to the user.\nNone ? removes existing value.",
+            "maxLength" : 5
+          },
+          "[s] {Defined Supervisor List}" : {
+            "type" : "string",
+            "description" : "Any defined supervisor list associated with the user. The\ndefined supervisor list field name should be prefixed with\n?[s]?. For example, defined supervisor list field name:\n?Financial Supervisor? should be ?[s] Financial Supervisor?.\nThe values will be the person?s username.\nIf an invalid username is assigned to the Defined Supervisor\nfield, a warning will display after the upload has run, but\nthe record will not fail. Instead, the supervisor will be\nset as a null and may be corrected manually through the UI\nor via a future upload.\n[Blank] will set field to blank."
+          },
+          "Date Format" : {
+            "type" : "string",
+            "description" : "Date format preference that will be displayed to user.\nIf left blank in add mode, it will default to date format of\nthe buyer.\nIf left blank in update mode, it retains the old value.",
+            "maxLength" : 500
+          },
+          "Mobile Number" : {
+            "type" : "string",
+            "description" : "The user's mobile number.\n[Blank] will set field to blank.",
+            "maxLength" : 50
+          },
+          "Program Office will assist with RFX creation" : {
+            "type" : "string",
+            "description" : "Determines if the user will utilize the PMO assisted workflow\nor the unassisted workflow for RFXs.",
+            "maxLength" : 3
+          },
+          "Set Run As User" : {
+            "type" : "string",
+            "description" : "Indicates if the user can run reports as another user.",
+            "maxLength" : 3
+          },
+          "Language" : {
+            "type" : "string",
+            "description" : "Determines the language for the user.\nIf left blank in add mode, it will default to default\nlanguage of the buyer.\nIf left blank in update mode, it retains the old value.",
+            "maxLength" : 500
+          },
+          "Broadcast" : {
+            "type" : "string",
+            "description" : "Specifies if user would like to receive broadcast message as\nan email or not at all.\nIf no value is provided, broadcast messages will appear in\nSAP Fieldglass, but will not be sent directly to the\nuser.\nNone ? removes existing value.",
+            "maxLength" : 5
+          },
+          "Star" : {
+            "type" : "string",
+            "description" : "Yes = Notifications of items being starred will be sent via\nemail to the user.\nNo/Blank = No notifications will be sent when starring\noccurs.\nUser permissions must be enabled for this.",
+            "maxLength" : 3
+          },
+          "PMO Dashboard" : {
+            "type" : "string",
+            "description" : "This field is applicable only if buyer has enabled the\nplug-in PMO Dashboard. Determines if the user will utilize\nthe PMO Dashboard.",
+            "maxLength" : 3
+          },
+          "Show Home Page Announcement" : {
+            "type" : "string",
+            "description" : "Determines if user will see announcements on his/her Home\nPage. \nUser permissions must be enabled for this.",
+            "maxLength" : 3
+          },
+          "Display Name" : {
+            "type" : "string",
+            "description" : "How the user?s name should be displayed throughout the\napplication.\nIf left blank for Add, the user?s display name will default\nto the 'Last Name, First Name' format. If left blank for\nUpdate, this field retains its value.",
+            "maxLength" : 100
+          },
+          "User will receive Ask an Expert (Contingent) questions" : {
+            "type" : "string",
+            "description" : "This field is applicable only if the buyer has enabled\nplug-in ?Ask an Expert (Contingent)?. Determines if user can\nreceive Ask an Expert (Contingent) questions.",
+            "maxLength" : 3
+          },
+          "Scheduler will assist with Interview and Meeting creation" : {
+            "type" : "string",
+            "description" : "Determines if the user can submit Interviews/Meetings to\nsupplier.\nIf left blank, this field defaults to No.",
+            "maxLength" : 3
+          },
+          "Can Sign / Attach Activity Item Contracts" : {
+            "type" : "string",
+            "description" : "Determines if the user can electronically sign and attach the\ncontract.\nSee Configuration Considerations section for more\ninformation.",
+            "maxLength" : 3
+          },
+          "Primary Business Unit" : {
+            "type" : "string",
+            "description" : "The Business Unit Code as defined in the SAP Fieldglass\nsystem. The business unit identifies what data the user has\naccess to in SAP Fieldglass, as well as the approval groups\nthat are executed.",
+            "maxLength" : 100
+          },
+          "Reminder" : {
+            "type" : "string",
+            "description" : "This field (flag) is applicable only if buyer has enabled\nReminder config.\nYes: Reminder under Messaging section in My Preferences will\nbe enabled for email.\nNo: Reminder under Messaging section in My Preferences will\nbe disabled for email.\nIf left blank or column is not present in the upload file,\nthis field defaults to No.",
+            "maxLength" : 3
+          },
+          "Access To Multi-Tenant Data" : {
+            "type" : "string",
+            "description" : "This field (flag) is applicable only if the buyer has enabled\nthe ?Access To Multi-Tenant Data? configuration.\nWhen left blank, then defaults to No. This field (flag)\ncannot be enabled for Admin users.",
+            "maxLength" : 3
+          },
+          "Can be Selected to Electronically Sign a Document" : {
+            "type" : "string",
+            "description" : "Indicates if the user can be selected to electronically sign\na document.\nCompany Config. 'Enable eSignature Provider' must be enabled\nand eSignature Provider must be either 'DocuSign' or\n'TrustSeed'.",
+            "maxLength" : 3
+          },
+          "ZIP/Postal Code" : {
+            "type" : "string",
+            "description" : "The user's postal code/zip code. Both 5- and 9-digit codes\nare accepted.\n[Blank] will set field to blank.",
+            "maxLength" : 20
+          },
+          "Business Unit Access" : {
+            "type" : "string",
+            "description" : "Determines the method for which business unit access will be\ngiven to a user.\nALL = All business units will be associated with the\nuser.\nBuild = As business units are used by users that are\nsubordinate to the user or appear on transactions requiring\nthe user?s approval, the user will be given access.\nAssociate = Business units must be explicitly associated with\nthe user on their profile in SAP Fieldglass.\nIf field left blank, value defaults to Associate.",
+            "maxLength" : 9
+          },
+          "Title" : {
+            "type" : "string",
+            "description" : "The user?s job title.\n[Blank] will set field to blank.",
+            "maxLength" : 300
+          },
+          "Second Work Items Digest Time" : {
+            "type" : "number",
+            "description" : "Indicates a second scheduled time for work items to be sent\nto user when Send Work Item Digest = ?Yes?.\nSecond Work Item Digest Time must be greater than First Work\nItem Digest Time by at least two hours."
+          },
+          "Receive Notifications via Email Before Registration" : {
+            "type" : "string",
+            "description" : "If this field left blank, it defaults to No.\nIf No is selected, the user will receive the first email\nnotification that SAP Fieldglass generates for the user.\nSubsequent regular notifications will only be sent when the\nuser has registered. In addition to the first email\nnotification generated by the system, the user will also be\nsent regular registration notifications. \nIf Yes is selected, the user will receive email notifications\neven if the user has not registered in SAP Fieldglass. \nThis field is displayed if the Notification-Email option is\nselected in the Messaging section of the user profile.\nThis field will remain hidden and will default to 'Yes'\nwhen:\n\nThe email field is unchecked for both\nNotification and Work Item in the messaging\nsection of the user profile.\n\n\n OR\n\n\nEither the Notification or Work Item is checked and\nLogin Authorization Type is set to anything other\nthan Password Authentication.",
+            "maxLength" : 3
+          },
+          "Login Type" : {
+            "type" : "string",
+            "description" : "Determines login authorization type of the user.\nIf left blank in add mode, it will default to authorization\ntype set for buyer.\nIf left blank in update mode, it retains the old value.",
+            "maxLength" : 8
+          },
+          "Send Notification Digest" : {
+            "type" : "string",
+            "description" : "Determines if the user wishes to receive notifications at a\nscheduled time.\nOnly applicable if company configuration ?Enable Email\nDigest? for Notifications is enabled.",
+            "maxLength" : 3
+          },
+          "Chat (Services)" : {
+            "type" : "string",
+            "description" : "Yes = Chat messages for services documents will be sent to\nuser as emails in addition to displayed in the\napplication.\nNo/Blank = Chat messages will only appear in the application\nand user will not be notified via email when they\narrive.\nUser permissions must be enabled for this.",
+            "maxLength" : 3
+          },
+          "User Can Access All Legal Entities" : {
+            "type" : "string",
+            "description" : "This field (flag) is applicable only if buyer has enabled\n?Legal Entity? config.\nThis field (flag) indicates if the user has access to all of\nthe division codes. \nIf left blank, this field defaults to No.",
+            "maxLength" : 3
+          },
+          "Chat (Contingent)" : {
+            "type" : "string",
+            "description" : "Yes = Chat messages for contingent documents will be sent to\nuser as emails in addition to displayed in the\napplication.\nNo/Blank = Chat messages will only appear in the application\nand user will not be notified via email when they\narrive.\nUser permissions must be enabled for this.",
+            "maxLength" : 3
+          },
+          "Address 2" : {
+            "type" : "string",
+            "description" : "The user's address, Line 2.\n[Blank] will set field to blank.",
+            "maxLength" : 600
+          },
+          "Username" : {
+            "type" : "string",
+            "description" : "The user's SAP Fieldglass username. This item must be unique\nto the system (not just the buyer). SAP Fieldglass\nrecommends the user?s email address as the username.\nFor Bulk Full version, this key field must be in the first\nposition. See the Configuration Considerations section for\nmore information.",
+            "maxLength" : 100
+          },
+          "Address 1" : {
+            "type" : "string",
+            "description" : "The user's address, Line 1.\n[Blank] will set field to blank.",
+            "maxLength" : 600
+          },
+          "Primary Supervisor Username" : {
+            "type" : "string",
+            "description" : "The SAP Fieldglass username of the user?s primary supervisor\nfrom the buyer side, which is used for escalation and\nnotifications. Usernames are defined in the SAP Fieldglass\nsystem.",
+            "maxLength" : 100
+          },
+          "Fax Number" : {
+            "type" : "string",
+            "description" : "The user's fax number.\n[Blank] will set field to blank.",
+            "maxLength" : 32
+          },
+          "[c] {User Custom Field X}" : {
+            "type" : "string",
+            "description" : "Any custom field associated with the user module. The custom\nfield name should be prefixed with ?[c]?. For example,\ncustom field name: ?User Custom Field 1? should be ?[c] User\nCustom Field 1?.\nValid values of the custom field are configured during the\nsetup of the SAP Fieldglass system.\nDo not include this field if it is not being used."
+          },
+          "Alert" : {
+            "type" : "string",
+            "description" : "Determines if user would like to receive email of the alerts\nor not at all. \nNone ? removes existing value.",
+            "maxLength" : 5
+          },
+          "Phone Number" : {
+            "type" : "string",
+            "description" : "The user's phone number.\n[Blank] will set field to blank.",
+            "maxLength" : 50
+          },
+          "Start Day for the Calendar Widget" : {
+            "type" : "string",
+            "description" : "Specifies the first day of the week in the calendar widgets\nthat pop up next to date fields in the application.\nIf left blank, Start Date will default to Sunday.",
+            "maxLength" : 9
+          },
+          "Use Flexible Sourcing" : {
+            "type" : "string",
+            "description" : "Flexible Sourcing allows the user to compare rate information\nfor different sites and suppliers before creating a job\nposting.\nYes: When a user with the user profile flag ?Use Flexible\nSourcing? enabled creates a job posting and selects a Job\nPosting Template with the rule creator ?Can Use Flexible\nSourcing? selected, the Flexible Sourcing feature is\nautomatically invoked. \nNO: Set to Default.\nIf left blank, this field defaults to No.",
+            "maxLength" : 3
+          }
+        },
+        "required" : [ "Username", "[sa] Default Currency Code" ]
+      }
+    }
+  },
+  "externalDocs" : {
+    "description" : "SAP Fieldglass Connector Library",
+    "url" : "https://help.sap.com/viewer/9cfd5c12ee3046d59453e73974f9c4b7/cloud/en-US/60aaf9490ca84ab9b6432e5e5032eb4e.html"
+  }
+}

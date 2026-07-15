@@ -1,0 +1,116 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Group Consolidation Journal Entries API",
+    "description": "API for posting financial consolidation journal entries with detailed item dimensions.",
+    "version": "1.0.0"
+  },
+  "host": "api.example.com",
+  "basePath": "/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/journal-entries": {
+      "post": {
+        "summary": "Post new consolidation journal entries",
+        "operationId": "createJournalEntry",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The consolidation journal entry payload.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JournalEntryPayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully posted journal entries."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "JournalEntryPayload": {
+      "type": "object",
+      "properties": {
+        "FiscalYear": { "type": "string", "example": "2020" },
+        "ConsolidationVersion": { "type": "string", "example": "C10" },
+        "FiscalPeriod": { "type": "string", "example": "12" },
+        "ConsolidationChartOfAccounts": { "type": "string", "example": "C1" },
+        "ConsolidationDocumentType": { "type": "string", "example": "1P" },
+        "DocumentItemText": { "type": "string", "example": "" },
+        "ConsolidationUnit": { "type": "string", "example": "1090" },
+        "ConsolidationGroup": { "type": "string", "example": "" },
+        "ConsolidationUnit1": { "type": "string", "example": "" },
+        "ConsolidationUnit2": { "type": "string", "example": "" },
+        "_Item": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PostingItem"
+          }
+        }
+      }
+    },
+    "PostingItem": {
+      "type": "object",
+      "properties": {
+        "ConsolidationPostingItem": { "type": "string", "example": "01" },
+        "FinancialStatementItem": { "type": "string", "example": "1007000600" },
+        "ConsolidationVersion": { "type": "string", "example": "C10" },
+        "SubItem": { "type": "string", "example": "200" },
+        "AmountInLocalCurrency": { "type": "number", "format": "double", "example": 0.0 },
+        "LocalCurrency": { "type": "string", "example": "AED" },
+        "PartnerConsolidationUnit": { "type": "string", "example": "2001" },
+        "ConsolidationUnit": { "type": "string", "example": "1090" },
+        "Company": { "type": "string", "example": "" },
+        "CompanyCode": { "type": "string", "example": "" },
+        "BusinessTransactionType": { "type": "string", "example": "" },
+        "ControllingArea": { "type": "string", "example": "" },
+        "CostCenter": { "type": "string", "example": "" },
+        "GLAccount": { "type": "string", "example": "" },
+        "ProfitCenter": { "type": "string", "example": "" },
+        "BusinessArea": { "type": "string", "example": "" },
+        "PartnerCostCenter": { "type": "string", "example": "" },
+        "PartnerProfitCenter": { "type": "string", "example": "" },
+        "AssignmentReference": { "type": "string", "example": "" },
+        "Segment": { "type": "string", "example": "" },
+        "PartnerFunctionalArea": { "type": "string", "example": "" },
+        "PartnerBusinessArea": { "type": "string", "example": "" },
+        "PartnerCompany": { "type": "string", "example": "" },
+        "PartnerSegment": { "type": "string", "example": "" },
+        "OrderID": { "type": "string", "example": "" },
+        "Customer": { "type": "string", "example": "" },
+        "FunctionalArea": { "type": "string", "example": "" },
+        "Supplier": { "type": "string", "example": "" },
+        "Material": { "type": "string", "example": "" },
+        "Plant": { "type": "string", "example": "" },
+        "FinancialTransactionType": { "type": "string", "example": "" },
+        "BillingDocumentType": { "type": "string", "example": "" },
+        "SalesOrganization": { "type": "string", "example": "" },
+        "DistributionChannel": { "type": "string", "example": "" },
+        "OrganizationDivision": { "type": "string", "example": "" },
+        "SoldMaterial": { "type": "string", "example": "" },
+        "MaterialGroup": { "type": "string", "example": "" },
+        "ProductGroup": { "type": "string", "example": "" },
+        "CustomerGroup": { "type": "string", "example": "" },
+        "CustomerSupplierCountry": { "type": "string", "example": "" },
+        "CustomerSupplierIndustry": { "type": "string", "example": "" },
+        "SalesDistrict": { "type": "string", "example": "" },
+        "BillToParty": { "type": "string", "example": "" },
+        "ShipToParty": { "type": "string", "example": "" },
+        "CustomerSupplierCorporateGroup": { "type": "string", "example": "" }
+      }
+    }
+  }
+}

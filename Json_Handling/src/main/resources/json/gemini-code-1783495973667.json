@@ -1,0 +1,80 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Consolidation Data API",
+    "description": "API for uploading or retrieving consolidation financial documents.",
+    "version": "1.0.0"
+  },
+  "host": "api.example.com",
+  "basePath": "/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/consolidation-data": {
+      "post": {
+        "summary": "Upload financial consolidation data records",
+        "operationId": "uploadConsolidationData",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The payload containing consolidation records.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConsolidationPayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ConsolidationPayload": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConsolidationItem"
+          }
+        }
+      }
+    },
+    "ConsolidationItem": {
+      "type": "object",
+      "properties": {
+        "ConsolidationDocumentType": { "type": "string", "example": "22" },
+        "ConsolidationLedger": { "type": "string", "example": "1G" },
+        "ConsolidationUnit": { "type": "string", "example": "1090" },
+        "ConsolidationVersion": { "type": "string", "example": "T10" },
+        "CreationDateTime": { "type": "string", "format": "date-time", "example": "2026-07-06T10:44:41.791Z" },
+        "CurrUnit": { "type": "string", "example": "AED" },
+        "FinancialStatementItem": { "type": "string", "example": "1091009000" },
+        "FiscalPeriod": { "type": "string", "example": "002" },
+        "FiscalYear": { "type": "string", "example": "2025" },
+        "IsDataPeriodic": { "type": "string", "example": "true" },
+        "RowNumber": { "type": "integer", "example": 1 },
+        "Subitem": { "type": "string", "example": "100" },
+        "SubitemCategory": { "type": "integer", "example": 1 },
+        "Trading_Partner": { "type": "string", "example": "2391" },
+        "AmountInTransactionCurrency": { "type": "number", "format": "double", "example": 0.0 },
+        "UpdateMode": { "type": "string", "example": "2" },
+        "ConsolidationGroup": { "type": "string", "example": "" },
+        "AmountInLocalCurrency": { "type": "number", "format": "double", "example": 0.0 },
+        "AmountInGroupCurrency": { "type": "number", "format": "double", "example": -3130.27 }
+      }
+    }
+  }
+}
